@@ -22,3 +22,6 @@
 # Ignore secrets
 /config/master.key
 .env
+
+# Ignore congress_forms gem which might be cloned locally
+/congress_forms

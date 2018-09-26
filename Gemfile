@@ -14,7 +14,7 @@ gem 'puma', '~> 3.11'
 gem 'dotenv'
 gem 'delayed_job_active_record'
 gem 'sentry-raven'
-gem 'congress_forms', path: '../congress_forms'
+gem 'congress_forms', path: './congress_forms'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
