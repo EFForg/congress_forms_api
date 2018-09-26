@@ -1,4 +1,6 @@
 class CongressMembersController < ApplicationController
+  before_action :check_debug_key, only: %w(index index_actions)
+
   def form_actions
     bio_ids = params.require(:bio_ids)
 

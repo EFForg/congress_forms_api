@@ -1,6 +1,9 @@
 class FillsController < ApplicationController
   include ActionController::MimeResponds
 
+  before_action :check_debug_key,
+                only: %w(index report_by_date report_by_member)
+
   def create
     bio_id = params.require(:bio_id)
     fields = params.require(:fields)
