@@ -8,7 +8,7 @@ default: &default
 
 test:
   adapter: sqlite3
-  database: ":memory:"
+  database: tmp/congress_forms_api_test
 
 development:
   <<: *default
