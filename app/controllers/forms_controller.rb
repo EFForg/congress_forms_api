@@ -45,12 +45,8 @@ class FormsController < ApplicationController
       return render json: { status: "error", message: message }.to_json
     end
 
-    if params["test"] == "1"
-      return render json: { status: "success", test: true }.to_json
-    end
-
     begin
-      form.fill(fields) # params["campaign_tag"] ?
+      form.fill(fields.permit!.to_h, submit: !params[:test]) # params["campaign_tag"] ?
     rescue CongressForms::Error => e
       CongressFormsFill.perform_later(cm.congress_forms_id, fields)
     end

@@ -89,7 +89,7 @@ RSpec.describe FormsController, type: :controller do
 
       fields = { "$NAME_FIRST" => "test test test" }
       expect(form).to receive(:fill).
-                       with(fields)
+                       with(fields, anything)
 
       post :fill, as: :json,
            body: { bio_id: senator.bioguide_id, fields: fields }.to_json
