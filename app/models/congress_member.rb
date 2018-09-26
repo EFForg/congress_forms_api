@@ -43,6 +43,11 @@ class CongressMember
     repo[bioguide]
   end
 
+  def self.all
+    update_repo if repo_age > 5*60
+    repo.values.sort_by(&:bioguide_id)
+  end
+
   def initialize(bioguide_id:, chamber:, state:,
                  district: nil, contact_url: nil)
     self.bioguide_id = bioguide_id

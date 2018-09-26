@@ -22,7 +22,7 @@ class CongressMembersController < ApplicationController
   end
 
   def index
-    # todo
+    render json: CongressMember.all
   end
 
   def index_actions
