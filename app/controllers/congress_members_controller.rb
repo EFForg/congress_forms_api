@@ -1,4 +1,26 @@
 class CongressMembersController < ApplicationController
+  def form_actions
+    bio_ids = params.require(:bio_ids)
+
+    es = bio_ids.map{ |id| CongressMember.find(id) }.compact.map do |cm|
+      form = CongressForms::Form.find(cm.congress_forms_id)
+
+      fields = form.required_params.tap do |fields|
+        fields.each do |f|
+          f[:maxlength] = f.delete(:max_length)
+          f[:options_hash] = f.delete(:options)
+        end
+      end
+
+      [
+        cm.bioguide_id,
+        { required_actions: fields }
+      ]
+    end
+
+    render json: es.to_h
+  end
+
   def index
     # todo
   end

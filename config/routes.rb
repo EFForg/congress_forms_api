@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  post "retrieve-form-elements", to: "forms#elements"
-  post "fill-out-form", to: "forms#fill"
+  post "retrieve-form-elements", to: "congress_members#form_actions"
+  post "fill-out-form", to: "fills#create"
 
   get "recent-fill-image/:bio_id",
       to: "fills#report", defaults: { format: "svg" }
