@@ -89,10 +89,13 @@ RSpec.describe FormsController, type: :controller do
 
       fields = { "$NAME_FIRST" => "test test test" }
       expect(form).to receive(:fill).
-                       with(fields, anything)
+                       with(fields, anything).
+                       and_return(true)
 
-      post :fill, as: :json,
-           body: { bio_id: senator.bioguide_id, fields: fields }.to_json
+      expect {
+        post :fill, as: :json,
+             body: { bio_id: senator.bioguide_id, fields: fields }.to_json
+      }.to change{ Fill.where(bioguide_id: senator.bioguide_id).success.count }.by(1)
     end
 
     context "required fields are missing" do

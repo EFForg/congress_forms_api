@@ -46,9 +46,22 @@ class FormsController < ApplicationController
     end
 
     begin
-      form.fill(fields.permit!.to_h, submit: !params[:test]) # params["campaign_tag"] ?
+      status =
+        if form.fill(fields.permit!.to_h, submit: !params[:test])
+          "success"
+        else
+          "failure"
+        end
     rescue CongressForms::Error => e
+      Raven.capture_message("Form error: #{bio_id}", tags: { "form_error" => true })
       CongressFormsFill.perform_later(cm.congress_forms_id, fields)
+    ensure
+      Fill.create(
+        bioguide_id: bio_id,
+        campaign_tag: params[:campaign_tag],
+        status: status || "error",
+        # screenshot: screenshot
+      )
     end
 
     render json: { status: "success" }

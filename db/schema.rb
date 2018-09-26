@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_25_215055) do
+ActiveRecord::Schema.define(version: 2018_09_26_181907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,18 @@ ActiveRecord::Schema.define(version: 2018_09_25_215055) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "fills", force: :cascade do |t|
+    t.string "bioguide_id", null: false
+    t.string "campaign_tag"
+    t.string "status", null: false
+    t.string "screenshot"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bioguide_id", "status"], name: "index_fills_on_bioguide_id_and_status"
+    t.index ["bioguide_id"], name: "index_fills_on_bioguide_id"
+    t.index ["campaign_tag"], name: "index_fills_on_campaign_tag"
   end
 
 end
