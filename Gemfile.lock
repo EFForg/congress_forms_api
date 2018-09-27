@@ -1,5 +1,5 @@
 PATH
-  remote: ./congress_forms
+  remote: congress_forms
   specs:
     congress_forms (0.1.0)
       capybara-selenium

@@ -1,0 +1,15 @@
+# Ignore secrets
+.env
+docker-compose.yml
+
+# Ignore git repo
+.git*
+
+# Ignore temporary files and logs
+tmp/*
+log/*
+.byebug_history
+
+# Ignore other stuff
+.bundle
+.chromedriver-helper

@@ -1,0 +1,36 @@
+version: '2.1'
+services:
+  app:
+    build: .
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+    volumes:
+      # for local development only
+      - .:/opt/congress_forms_api
+
+    ports:
+      - 3000:3000
+
+    env_file: .env
+
+  db:
+    image: postgres
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+    env_file: .env
+
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

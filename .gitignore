@@ -12,16 +12,24 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+.byebug_history
+.bash_history
+.ash_history
 
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
 
-.byebug_history
-
 # Ignore secrets
 /config/master.key
 .env
+docker-compose.yml
 
 # Ignore congress_forms gem which might be cloned locally
 /congress_forms
+
+# Ignore other stuff
+.cache
+.chromedriver-helper
+.pki
+.local
