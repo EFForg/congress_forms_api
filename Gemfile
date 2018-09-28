@@ -13,6 +13,7 @@ gem 'sqlite3'
 gem 'puma', '~> 3.11'
 gem 'dotenv'
 gem 'delayed_job_active_record'
+gem 'delayed_job_web'
 gem 'sentry-raven'
 gem 'congress_forms', path: './congress_forms'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

@@ -15,4 +15,7 @@ Rails.application.routes.draw do
 
   get "list-actions/:bio_id", to: "congress_members#index_actions"
   get "list-congress-members", to: "congress_members#index"
+
+  match "/delayed_job" => DelayedJobWeb,
+        anchor: false, via: [:get, :post]
 end
