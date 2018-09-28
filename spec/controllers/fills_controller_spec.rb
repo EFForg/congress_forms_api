@@ -72,7 +72,12 @@ RSpec.describe FillsController, type: :controller do
 
         fields = { "$NAME_FIRST" => "test test" }
 
+        set = CongressFormsFill.set
+
         expect(CongressFormsFill).
+          to receive(:set).and_return(set)
+
+        expect(set).
           to receive(:perform_later).
               with(senator.congress_forms_id, fields)
 

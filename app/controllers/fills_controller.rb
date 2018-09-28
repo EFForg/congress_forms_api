@@ -6,7 +6,7 @@ class FillsController < ApplicationController
 
   def create
     bio_id = params.require(:bio_id)
-    fields = params.require(:fields)
+    fields = params.require(:fields).permit!.to_h
 
     cm = CongressMember.find(bio_id) or return render json: {
       status: "error",
@@ -30,14 +30,14 @@ class FillsController < ApplicationController
 
     begin
       status =
-        if form.fill(fields.permit!.to_h, submit: !params[:test])
+        if form.fill(fields, submit: !params[:test])
           "success"
         else
           "failure"
         end
     rescue CongressForms::Error => e
       Raven.capture_message("Form error: #{bio_id}", tags: { "form_error" => true })
-      CongressFormsFill.perform_later(cm.congress_forms_id, fields)
+      CongressFormsFill.set(wait: 6.hours).perform_later(cm.congress_forms_id, fields)
     ensure
       Fill.create(
         bioguide_id: bio_id,

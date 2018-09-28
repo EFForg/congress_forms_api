@@ -4,3 +4,6 @@ if [ENV["ADMIN_USER_NAME"], ENV["ADMIN_PASSWORD"]].all?(&:present?)
       ActiveSupport::SecurityUtils.secure_compare(password, ENV["ADMIN_PASSWORD"])
   end
 end
+
+Delayed::Worker.destroy_failed_jobs = false
+
