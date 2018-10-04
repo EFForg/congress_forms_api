@@ -1,24 +1,43 @@
-# README
+# CongressForms API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Rails app providing a JSON-based API for the [EFForg/congress_forms](https://github.com/EFForg/congress_forms) gem.
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+Start by coping the example config.
 
-* System dependencies
+```
+$ cp .env.example .env
+$ cp docker-compose.yml.example docker-compose.yml # if using docker
+```
 
-* Configuration
+Fill in the `DATABASE_*` variables with your postgres address/credentials, and the `CWC_*` variables with your Communicating with Congress vendor information (see the [congress_forms](https://github.com/EFForg/congress_forms#operation-and-configuration) README for more documentation on CWC).
 
-* Database creation
+The `ADMIN_*` variables are optional. They set the basic auth credentials used by the [/delayed_job](https://github.com/ejschmitt/delayed_job_web) admin area.
 
-* Database initialization
+`DEBUG_KEY` is required for access to some API endpoints. Read the [API documentation](#api-documentation) for more information.
 
-* How to run the test suite
+You'll also need to clone the [EFForg/congress_forms](https://github.com/EFForg/congress_forms) repo locally (this is temporary until that project is released as a gem):
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+$ git clone https://github.com/EFForg/congress_forms.git
+```
 
-* Deployment instructions
+If you're using docker, at this point you can build the containers. Either way be sure to run `rake db:setup` to initialize the database, and then you should be done!
 
-* ...
+## Delayed Messages
+
+When a message can't be delivered, it is saved into a [delayed_job](https://github.com/collectiveidea/delayed_job) queue and attempted again later. To process this queue you need to run a delayed job worker:
+
+```
+$ rake jobs:work
+```
+
+The example docker-compose configuration includes a container running this command.
+
+## API Documentation
+ See [public/index.md](https://github.com/EFForg/congress_forms_api/blob/master/public/index.md).
+
+## License
+
+The code is available as open source under the terms of the [GPLv3 License](https://github.com/EFForg/congress_forms_api/blob/master/LICENSE.txt).

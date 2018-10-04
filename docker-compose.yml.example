@@ -18,6 +18,24 @@ services:
 
     env_file: .env
 
+
+  app:
+    build: .
+    command: rake jobs:work
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+    volumes:
+      # for local development only
+      - .:/opt/congress_forms_api
+
+    env_file: .env
+
+
   db:
     image: postgres
 
