@@ -15,10 +15,10 @@ RSpec.describe FillsController, type: :controller do
             with(senator.bioguide_id).
             and_return(senator)
 
-      form = CongressForms::Form.new
+      form = CongressForms::WebForm.new
       expect(CongressForms::Form).
         to receive(:find).
-            with(senator.congress_forms_id).
+            with(senator.form_id).
             and_return(form)
 
       fields = { "$NAME_FIRST" => "test test test" }
@@ -60,10 +60,10 @@ RSpec.describe FillsController, type: :controller do
               with(senator.bioguide_id).
               and_return(senator)
 
-        form = CongressForms::Form.new
+        form = CongressForms::WebForm.new
         expect(CongressForms::Form).
           to receive(:find).
-              with(senator.congress_forms_id).
+              with(senator.form_id).
               and_return(form)
 
         expect(form).
@@ -79,7 +79,7 @@ RSpec.describe FillsController, type: :controller do
 
         expect(set).
           to receive(:perform_later).
-              with(senator.congress_forms_id, fields)
+              with(senator.form_id, fields)
 
         post :create, as: :json,
              body: { bio_id: senator.bioguide_id, fields: fields }.to_json

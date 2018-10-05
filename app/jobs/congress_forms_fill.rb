@@ -1,6 +1,6 @@
 class CongressFormsFill < ApplicationJob
-  def perform(congress_forms_id, fields)
-    CongressForms::Form.find(congress_forms_id).fill(fields)
+  def perform(form_id, fields)
+    CongressForms::Form.find(form_id).fill(fields)
   end
 
   def reschedule_at(current_time, attempts)

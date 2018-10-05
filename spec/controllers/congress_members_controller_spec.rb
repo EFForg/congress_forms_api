@@ -19,7 +19,7 @@ RSpec.describe CongressMembersController, type: :controller do
 
   describe "POST /retrieve-form-elements" do
     it "should lookup the rep by BioGuide ID, then respond with the #required_params of the form" do
-      form = CongressForms::Form.new
+      form = CongressForms::WebForm.new
       required_params = [ { value: "$NAME_FIRST",
                             max_length: 100,
                             options: nil } ]
@@ -31,7 +31,7 @@ RSpec.describe CongressMembersController, type: :controller do
 
       expect(CongressForms::Form).
         to receive(:find).
-            with(senator.congress_forms_id).
+            with(senator.form_id).
             and_return(form)
 
       expect(form).

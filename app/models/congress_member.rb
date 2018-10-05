@@ -57,7 +57,7 @@ class CongressMember
     self.contact_url = contact_url
   end
 
-  def congress_forms_id
+  def form_id
     if chamber == "senate"
       bioguide_id
     else

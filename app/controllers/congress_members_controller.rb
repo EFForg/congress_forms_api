@@ -5,7 +5,7 @@ class CongressMembersController < ApplicationController
     bio_ids = params.require(:bio_ids)
 
     es = bio_ids.map{ |id| CongressMember.find(id) }.compact.map do |cm|
-      form = CongressForms::Form.find(cm.congress_forms_id)
+      form = CongressForms::Form.find(cm.form_id)
 
       fields = form.required_params.tap do |fields|
         fields.each do |f|

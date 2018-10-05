@@ -4,43 +4,30 @@ class FillsController < ApplicationController
   before_action :check_debug_key,
                 only: %w(index report_by_date report_by_member)
 
+  before_action :find_form, only: :create
+  before_action :check_for_missing_fields, only: :create
+
   def create
-    bio_id = params.require(:bio_id)
     fields = params.require(:fields).permit!.to_h
-
-    cm = CongressMember.find(bio_id) or return render json: {
-      status: "error",
-      message: "Congress member with provided bio id not found"
-    }.to_json
-
-    form = CongressForms::Form.find(cm.congress_forms_id)
-
-    missing_parameters = []
-
-    form.required_params.each do |field|
-      unless fields.include?(field[:value])
-        missing_parameters << field[:value]
-      end
-    end
-
-    if missing_parameters.any?
-      message = "Error: missing fields (#{missing_parameters.join(', ')})."
-      return render json: { status: "error", message: message }.to_json
-    end
 
     begin
       status =
-        if form.fill(fields, submit: !params[:test])
+        if @form.fill(fields, submit: !params[:test])
           "success"
         else
           "failure"
         end
     rescue CongressForms::Error => e
-      Raven.capture_message("Form error: #{bio_id}", tags: { "form_error" => true })
-      CongressFormsFill.set(wait: 6.hours).perform_later(cm.congress_forms_id, fields)
+      Raven.capture_message(
+        "Form error: #{@congress_member.bioguide_id}",
+        tags: { "form_error" => true }
+      )
+
+      CongressFormsFill.set(wait: 6.hours).
+        perform_later(@congress_member.form_id, fields)
     ensure
       Fill.create(
-        bioguide_id: bio_id,
+        bioguide_id: @congress_member.bioguide_id,
         campaign_tag: params[:campaign_tag],
         status: status || "error",
         # screenshot: screenshot
@@ -114,5 +101,29 @@ class FillsController < ApplicationController
     end
 
     render json: fills.count
+  end
+
+  protected
+
+  def find_form
+    bio_id = params.require(:bio_id)
+
+    if @congress_member = CongressMember.find(bio_id)
+      @form = CongressForms::Form.find(@congress_member.form_id)
+    else
+      render json: {
+               status: "error",
+               message: "Congress member with provided bio id not found"
+             }.to_json
+    end
+  end
+
+  def check_for_missing_fields
+    fields = params.require(:fields).permit!.to_h
+
+    if missing_params = @form.missing_required_params(fields)
+      message = "Error: missing fields (#{missing_params.join(', ')})."
+      render json: { status: "error", message: message }.to_json
+    end
   end
 end
