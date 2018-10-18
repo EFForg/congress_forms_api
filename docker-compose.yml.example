@@ -13,6 +13,8 @@ services:
       # for local development only
       - .:/opt/congress_forms_api
 
+      - contact_congress:/opt/congress_forms_api/contact_congress
+
     ports:
       - 3000:3000
 
@@ -33,6 +35,8 @@ services:
       # for local development only
       - .:/opt/congress_forms_api
 
+      - contact_congress:/opt/congress_forms_api/contact_congress
+
     env_file: .env
 
 
@@ -52,3 +56,4 @@ services:
 
 volumes:
   pgdata:
+  contact_congress:

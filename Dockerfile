@@ -26,7 +26,10 @@ RUN bundle install
 COPY . .
 
 RUN adduser --uid 1000 --home /opt/congress_forms_api app && \
-    chown -R app /opt/congress_forms_api/tmp
+    chown -R app /opt/congress_forms_api/tmp && \
+    chown -R app /opt/congress_forms_api/log && \
+    mkdir -p /opt/congress_forms_api/contact_congress && \
+    chown -R app /opt/congress_forms_api/contact_congress
 
 USER app
 
