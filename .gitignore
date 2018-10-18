@@ -28,6 +28,9 @@ docker-compose.yml
 # Ignore congress_forms gem which might be cloned locally
 /congress_forms
 
+# Ignore contact_congress repo which might be cloned locally
+/contact_congress
+
 # Ignore other stuff
 .cache
 .chromedriver-helper
