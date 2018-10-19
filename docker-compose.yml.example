@@ -21,7 +21,7 @@ services:
     env_file: .env
 
 
-  app:
+  worker:
     build: .
     command: rake jobs:work
 
@@ -39,6 +39,8 @@ services:
 
     env_file: .env
 
+    environment:
+      CONTACT_CONGRESS_AUTO_UPDATE: "0"
 
   db:
     image: postgres
