@@ -1,0 +1,2 @@
+class DefunctCongressForm < ApplicationRecord
+end

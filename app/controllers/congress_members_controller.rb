@@ -16,7 +16,9 @@ class CongressMembersController < ApplicationController
 
       [
         cm.bioguide_id,
-        { required_actions: fields }
+        { required_actions: fields,
+          defunct: cm.defunct?,
+          contact_url: cm.contact_url }
       ]
     end
 

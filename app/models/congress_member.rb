@@ -1,5 +1,8 @@
 class CongressMember
   attr_accessor :bioguide_id, :chamber, :state, :district, :contact_url
+  attr_accessor :defunct, :contact_url
+
+  alias_method :defunct?, :defunct
 
   @@repo = nil
   @@repo_updated_at = nil
@@ -40,16 +43,26 @@ class CongressMember
 
   def self.find(bioguide)
     update_repo if repo_age > 5*60
-    repo[bioguide]
+    repo[bioguide].try(:tap) do |rep|
+      rep.defunct = DefunctCongressForm.find_by(
+        bioguide_id: rep.bioguide_id
+      ).present?
+    end
   end
 
   def self.all
     update_repo if repo_age > 5*60
-    repo.values.sort_by(&:bioguide_id)
+
+    defuncts = DefunctCongressForm.all.to_a
+
+    repo.values.sort_by(&:bioguide_id).each do |rep|
+      defunct = defuncts.find{ |d| d.bioguide_id == rep.bioguide_id }
+      rep.defunct = defunct.present?
+    end
   end
 
   def initialize(bioguide_id:, chamber:, state:,
-                 district: nil, contact_url: nil)
+                 district: nil, contact_url: nil, defunct: false)
     self.bioguide_id = bioguide_id
     self.chamber = chamber
     self.state = state

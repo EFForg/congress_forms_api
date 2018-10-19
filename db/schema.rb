@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_26_181907) do
+ActiveRecord::Schema.define(version: 2018_10_18_201340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "defunct_congress_forms", force: :cascade do |t|
+    t.string "bioguide_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bioguide_id"], name: "index_defunct_congress_forms_on_bioguide_id", unique: true
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
