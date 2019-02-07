@@ -1,4 +1,4 @@
-FROM ruby:2.5-slim
+FROM ruby:2.5
 
 RUN mkdir -p /opt/congress_forms_api
 WORKDIR /opt/congress_forms_api
