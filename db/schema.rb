@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_201340) do
+ActiveRecord::Schema.define(version: 2019_02_08_221558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "carried_over_messages", force: :cascade do |t|
+    t.integer "job_id", null: false
+    t.datetime "job_created_at", null: false
+    t.string "bioguide_id", null: false
+    t.string "campaign_tag"
+    t.text "fields", null: false
+    t.string "tags"
+    t.string "last_status"
+    t.string "last_screenshot"
+    t.datetime "last_attempted_at", default: "1970-01-01 00:00:00"
+    t.integer "attempts", default: 0
+    t.boolean "complete", default: false
+  end
 
   create_table "defunct_congress_forms", force: :cascade do |t|
     t.string "bioguide_id", null: false
