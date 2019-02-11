@@ -77,4 +77,8 @@ class CongressMember
       sprintf('H%s%02d', state, district)
     end
   end
+
+  def form
+    CongressForms::Form.find(form_id)
+  end
 end

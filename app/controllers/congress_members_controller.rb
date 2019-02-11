@@ -5,9 +5,7 @@ class CongressMembersController < ApplicationController
     bio_ids = params.require(:bio_ids)
 
     es = bio_ids.map{ |id| CongressMember.find(id) }.compact.map do |cm|
-      form = CongressForms::Form.find(cm.form_id)
-
-      fields = form.required_params.tap do |fields|
+      cm.form.required_params.tap do |fields|
         fields.each do |f|
           f[:maxlength] = f.delete(:max_length)
           f[:options_hash] = f.delete(:options)
@@ -30,7 +28,7 @@ class CongressMembersController < ApplicationController
   end
 
   def index_actions
-    f = CongressForms::Form.find(params[:bio_id])
+    f = CongressMember.find(params[:bio_id]).form
 
     actions = f.actions.each_with_index.map do |action, i|
       {

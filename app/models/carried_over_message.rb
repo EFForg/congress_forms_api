@@ -14,12 +14,10 @@ class CarriedOverMessage < ApplicationRecord
             "Couldn't find CongressMember<#{bioguide_id}>"
     end
 
-    form = CongressForms::Form.find(congress_member.form_id)
-
     status = "error"
 
     begin
-      status = if form.fill(fields, submit: submit)
+      status = if congress_member.form.fill(fields, submit: submit)
                  "success"
                else
                  "failure"

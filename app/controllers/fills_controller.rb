@@ -35,7 +35,7 @@ class FillsController < ApplicationController
       )
 
       CongressFormsFill.set(wait: 6.hours).
-        perform_later(@congress_member.form_id, fields)
+        perform_later(@congress_member.bioguide_id, fields)
     ensure
       Fill.create(
         bioguide_id: @congress_member.bioguide_id,
@@ -120,7 +120,7 @@ class FillsController < ApplicationController
     bio_id = params.require(:bio_id)
 
     if @congress_member = CongressMember.find(bio_id)
-      @form = CongressForms::Form.find(@congress_member.form_id)
+      @form = @congress_member.form
     else
       render json: {
                status: "error",
