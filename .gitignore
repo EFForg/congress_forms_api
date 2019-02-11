@@ -31,6 +31,10 @@ docker-compose.yml
 # Ignore contact_congress repo which might be cloned locally
 /contact_congress
 
+# Ignore browser screenshots
+/public/screenshots/*
+!/public/screenshots/.keep
+
 # Ignore other stuff
 .cache
 .chromedriver-helper

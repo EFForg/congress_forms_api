@@ -18,9 +18,20 @@ class FillsController < ApplicationController
           "failure"
         end
     rescue CongressForms::Error => e
-      Raven.capture_message(
-        "Form error: #{@congress_member.bioguide_id}",
-        tags: { "form_error" => true }
+      Raven.capture_exception(
+        e,
+        message: "#{congress_member.bioguide_id}: #{e.message}",
+        tags: {
+          "form_error" => true,
+          "bioguide_id" => congress_member.bioguide_id
+        },
+        extra: {
+          fields: fields,
+          screenshot: e.screenshot.sub(
+            Rails.root.join("public").to_s,
+            ENV["SERVER_HOST"]
+          )
+        }
       )
 
       CongressFormsFill.set(wait: 6.hours).
