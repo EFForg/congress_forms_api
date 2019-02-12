@@ -12,7 +12,7 @@ class FillsController < ApplicationController
 
     begin
       status =
-        if @form.fill(fields, submit: !params[:test])
+        if @form.fill(fields, submit: params[:test] != "1")
           "success"
         else
           "failure"
