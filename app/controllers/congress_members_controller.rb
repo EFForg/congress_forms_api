@@ -5,7 +5,7 @@ class CongressMembersController < ApplicationController
     bio_ids = params.require(:bio_ids)
 
     es = bio_ids.map{ |id| CongressMember.find(id) }.compact.map do |cm|
-      cm.form.required_params.tap do |fields|
+      fields = cm.form.required_params.tap do |fields|
         fields.each do |f|
           f[:maxlength] = f.delete(:max_length)
           f[:options_hash] = f.delete(:options)
