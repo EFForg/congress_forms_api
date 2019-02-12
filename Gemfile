@@ -12,6 +12,7 @@ gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 gem 'dotenv'
+gem 'rack-cors', require: 'rack/cors'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'sentry-raven'
