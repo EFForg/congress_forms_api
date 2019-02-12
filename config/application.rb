@@ -35,12 +35,15 @@ module CongressFormsApi
     config.middleware.use ActionDispatch::Session::CookieStore
 
     # Allow XHR requests from domains listed in XHR_ORIGINS.
-    if ENV["CORS_ORIGINS"].present?
-      config.middleware.insert_before 0, Rack::Cors do
-        allow do
-          origins ENV["CORS_ORIGINS"].split(",").map(&:strip)
-        resource "*", headers: :any, methods: [:get, :post, :options]
-        end
+    config.middleware.insert_before 0, Rack::Cors do
+      cors_origins = ENV["CORS_ORIGINS"].presence || "*"
+      allow do
+        origins cors_origins.split(",").map(&:strip)
+
+        resource "*",
+          headers: :any,
+          methods: [:get, :post, :options],
+          credentials: (cors_origins != "*")
       end
     end
   end
