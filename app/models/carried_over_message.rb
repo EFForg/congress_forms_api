@@ -6,7 +6,7 @@ class CarriedOverMessage < ApplicationRecord
 
   validates_uniqueness_of :job_id
 
-  def submit(submit=true)
+  def submit(validate_only: false)
     congress_member = CongressMember.find(bioguide_id)
 
     unless congress_member.present?
@@ -17,7 +17,7 @@ class CarriedOverMessage < ApplicationRecord
     status = "error"
 
     begin
-      status = if congress_member.form.fill(fields, submit: submit)
+      status = if congress_member.form.fill(fields, validate_only: validate_only)
                  "success"
                else
                  "failure"
