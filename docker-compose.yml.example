@@ -9,11 +9,9 @@ services:
 
     restart: unless-stopped
 
+    # for local development only
     volumes:
-      # for local development only
       - .:/opt/congress_forms_api
-
-      - contact_congress:/opt/congress_forms_api/contact_congress
 
     ports:
       - 3000:3000
@@ -31,16 +29,11 @@ services:
 
     restart: unless-stopped
 
+    # for local development only
     volumes:
-      # for local development only
       - .:/opt/congress_forms_api
 
-      - contact_congress:/opt/congress_forms_api/contact_congress
-
     env_file: .env
-
-    environment:
-      CONTACT_CONGRESS_AUTO_UPDATE: "0"
 
   db:
     image: postgres
@@ -58,4 +51,3 @@ services:
 
 volumes:
   pgdata:
-  contact_congress:
