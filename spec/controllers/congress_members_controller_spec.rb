@@ -44,10 +44,9 @@ RSpec.describe CongressMembersController, type: :controller do
       expect(response.content_type).to eq("application/json")
 
       result = JSON.load(response.body)
-      expect(result).to eq(senator.bioguide_id => {
-                             "required_actions" => required_params.map(&:deep_stringify_keys)
-                           }
-                          )
+      expect(result).to have_key(senator.bioguide_id)
+      expect(result[senator.bioguide_id]).
+        to include("required_actions" => required_params.map(&:deep_stringify_keys))
     end
 
     context "with invalid BioGuide ID" do
