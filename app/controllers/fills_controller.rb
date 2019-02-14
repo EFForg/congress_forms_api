@@ -20,14 +20,14 @@ class FillsController < ApplicationController
     rescue CongressForms::Error => e
       Raven.capture_exception(
         e,
-        message: "#{congress_member.bioguide_id}: #{e.message}",
+        message: "#{@congress_member.bioguide_id}: #{e.message}",
         tags: {
           "form_error" => true,
-          "bioguide_id" => congress_member.bioguide_id
+          "bioguide_id" => @congress_member.bioguide_id
         },
         extra: {
           fields: fields,
-          screenshot: e.screenshot.sub(
+          screenshot: e.screenshot.try(:sub,
             Rails.root.join("public").to_s,
             ENV["SERVER_HOST"]
           )
