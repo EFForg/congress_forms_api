@@ -18,19 +18,19 @@ RUN apt-get update -y && \
     apt-get update && \
     apt-get install -y --no-install-recommends google-chrome-stable
 
+COPY Gemfile* ./
+COPY congress_forms ./congress_forms
+RUN bundle install
+
+COPY . .
+
 RUN adduser --uid 1000 --home /opt/congress_forms_api app && \
     chown -R app /opt/congress_forms_api/tmp && \
     chown -R app /opt/congress_forms_api/log && \
     mkdir -p /opt/congress_forms_api/contact_congress && \
     chown -R app /opt/congress_forms_api/contact_congress && \
     mkdir /opt/congress_forms_api/.chromedriver-helper && \
-    chown -R app /opt/congress_forms_api/contact_congress/.chromedriver-helper
-
-COPY Gemfile* ./
-COPY congress_forms ./congress_forms
-RUN bundle install
-
-COPY . .
+    chown -R app /opt/congress_forms_api/.chromedriver-helper
 
 USER app
 
