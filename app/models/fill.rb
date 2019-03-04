@@ -1,5 +1,6 @@
 class Fill < ApplicationRecord
   scope :success, ->{ where(status: "success") }
+  scope :campaign, ->(tag){ where(campaign_tag: tag) }
 
   def self.recent(bio_id)
     form = CongressMember.find(bio_id).form

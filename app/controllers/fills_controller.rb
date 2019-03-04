@@ -49,10 +49,12 @@ class FillsController < ApplicationController
   end
 
   def index
+    fills = Fill.campaign(params[:campaign_tag])
+
     if params[:all_statuses]
-      fills = Fill.where(bioguide_id: params[:bio_id])
+      fills = fills.where(bioguide_id: params[:bio_id])
     else
-      fills = Fill.recent(params[:bio_id])
+      fills = fills.recent(params[:bio_id])
     end
 
     render json: fills.order(updated_at: :desc)
@@ -87,7 +89,8 @@ class FillsController < ApplicationController
   end
 
   def report_by_date
-    fills = Fill.where(status: "success").
+    fills = Fill.campaign(params[:campaign_tag]).
+            where(status: "success").
             group("date_trunc('day', created_at)").
             order("date_trunc('day', created_at)")
 
