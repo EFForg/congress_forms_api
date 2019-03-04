@@ -26,6 +26,7 @@ COPY . .
 RUN adduser --uid 1000 app && \
     chown -R app /opt/congress_forms_api/tmp && \
     chown -R app /opt/congress_forms_api/log && \
+    chown -R app /opt/congress_forms_api/public/screenshots && \
     mkdir -p /opt/congress_forms_api/contact_congress && \
     chown -R app /opt/congress_forms_api/contact_congress && \
     mkdir /opt/congress_forms_api/.chromedriver-helper && \
