@@ -17,12 +17,6 @@ The `ADMIN_*` variables are optional. They set the basic auth credentials used b
 
 `DEBUG_KEY` is required for access to some API endpoints. Read the [API documentation](#api-documentation) for more information.
 
-You'll also need to clone the [EFForg/congress_forms](https://github.com/EFForg/congress_forms) repo locally (this is temporary until that project is released as a gem):
-
-```
-$ git clone https://github.com/EFForg/congress_forms.git
-```
-
 If you're using docker, at this point you can build the containers. Either way be sure to run `rake db:setup` to initialize the database, and then you should be done!
 
 ## Delayed Messages
