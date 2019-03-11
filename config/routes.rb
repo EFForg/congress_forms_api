@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get "recent-statuses-detailed/:bio_id",
       to: "fills#index"
 
-  get "successful-fills-by-date/:bio_id", to: "fills#report_by_date"
+  get "successful-fills-by-date(/:bio_id)", to: "fills#report_by_date"
   get "successful-fills-by-member", to: "fills#report_by_member"
 
   get "list-actions/:bio_id", to: "congress_members#index_actions"
