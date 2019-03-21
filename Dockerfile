@@ -34,5 +34,7 @@ RUN adduser --uid 1000 app && \
 
 USER app
 
+RUN chromedriver-update 73.0.3683.68
+
 CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]
 ENTRYPOINT ["/opt/congress_forms_api/entrypoint.sh"]
