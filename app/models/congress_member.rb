@@ -87,6 +87,8 @@ class CongressMember
       DefunctCongressForm.find_or_create_by(bioguide_id: bioguide_id)
     end
 
+    self.defunct = true
+
     nil
   end
 end
