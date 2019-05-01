@@ -84,7 +84,7 @@ class CongressMember
     Raven.capture_exception(e, tags: { bioguide_id: bioguide_id })
 
     if e.message =~ /recaptcha/i
-      DefunctCongressForms.find_or_create_by(bioguide_id: bioguide_id)
+      DefunctCongressForm.find_or_create_by(bioguide_id: bioguide_id)
     end
 
     nil
