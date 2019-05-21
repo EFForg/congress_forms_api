@@ -1,4 +1,3 @@
-Webdrivers::Chromedriver.required_version = '73.0.3683.68'
 
 CongressForms.contact_congress_repository = Rails.root.join("contact_congress").to_s
 
