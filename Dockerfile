@@ -29,12 +29,10 @@ RUN adduser --uid 1000 app && \
     chown -R app /opt/congress_forms_api/public/screenshots && \
     mkdir -p /opt/congress_forms_api/contact_congress && \
     chown -R app /opt/congress_forms_api/contact_congress && \
-    mkdir /opt/congress_forms_api/.chromedriver-helper && \
-    chown -R app /opt/congress_forms_api/.chromedriver-helper
+    mkdir /opt/congress_forms_api/.webdrivers && \
+    chown -R app /opt/congress_forms_api/.webdrivers
 
 USER app
-
-RUN chromedriver-update 73.0.3683.68
 
 CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]
 ENTRYPOINT ["/opt/congress_forms_api/entrypoint.sh"]
