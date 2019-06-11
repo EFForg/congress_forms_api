@@ -89,16 +89,14 @@ class FillsController < ApplicationController
   end
 
   def report_by_date
-    fills = Fill.campaign(params[:campaign_tag]).where(status: "success")
-
     if params[:date_start] && params[:date_end]
       start_date = Time.zone.parse(params[:date_start])
       end_date = Time.zone.parse(params[:date_end])
-      fills = fills.group_by_day(:created_at, format: "%b %-e",
-                                 range: start_date..end_date.tomorrow)
-    else
-      fills = fills.group_by_day(:created_at, format:"%b %-e")
     end
+
+    fills = Fill.campaign(params[:campaign_tag]).
+      where(status: "success").
+      group_by_time(start_date, end_date)
 
     if params[:bio_id]
       fills = fills.where(bioguide_id: params[:bio_id])

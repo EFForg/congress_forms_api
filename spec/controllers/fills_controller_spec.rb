@@ -90,7 +90,7 @@ RSpec.describe FillsController, type: :controller do
 
   describe "GET /successful-fills-by-date" do
     before do
-      5.times do |n|
+      10.times do |n|
         Fill.create(
           status: "success",
           bioguide_id: "A0000000",
@@ -102,15 +102,23 @@ RSpec.describe FillsController, type: :controller do
     it "should return all dates" do
       get :report_by_date, as: :json,
         params: { debug_key: ENV["DEBUG_KEY"] }
-      expect(JSON.parse(response.body).length).to eq 5
+      expect(JSON.parse(response.body).length).to eq 10
     end
 
     it "should accept a date range" do
       get :report_by_date, as: :json,
-        params: { date_start: Date.today - 2.days,
+        params: { date_start: Date.today - 7.days,
                   date_end: Date.today - 1.days,
                   debug_key: ENV["DEBUG_KEY"]}
-      expect(JSON.parse(response.body).length).to eq 3
+      expect(JSON.parse(response.body).length).to eq 8
+    end
+
+    it "should group by hour when dates match" do
+      get :report_by_date, as: :json,
+        params: { date_start: Date.today,
+                  date_end: Date.today,
+                  debug_key: ENV["DEBUG_KEY"]}
+      expect(JSON.parse(response.body).length).to eq 25
     end
   end
 end
