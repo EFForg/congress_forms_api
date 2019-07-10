@@ -16,7 +16,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'sentry-raven'
-gem 'congress_forms'
+gem 'congress_forms', '~> 0.1.14'
 gem 'groupdate'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
