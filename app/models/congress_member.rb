@@ -47,6 +47,8 @@ class CongressMember
       rep.defunct = DefunctCongressForm.find_by(
         bioguide_id: rep.bioguide_id
       ).present?
+
+      return nil if rep.chamber == "house" && ENV["CWC_API_KEY"].blank?
     end
   end
 

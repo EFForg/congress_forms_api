@@ -4,8 +4,8 @@ class CongressMembersController < ApplicationController
   def form_actions
     bio_ids = params.require(:bio_ids)
 
-    es = bio_ids.map{ |id| CongressMember.find(id) }.map do |cm|
-      if form = cm.try(:form)
+    es = bio_ids.map{ |id| CongressMember.find(id) }.compact.map do |cm|
+      if form = cm.form
         fields = form.required_params.tap do |fields|
           fields.each do |f|
             f[:maxlength] = f.delete(:max_length)
@@ -22,7 +22,7 @@ class CongressMembersController < ApplicationController
           defunct: cm.defunct?,
           contact_url: cm.contact_url }
       ]
-    end.compact
+    end
 
     render json: es.to_h
   end
