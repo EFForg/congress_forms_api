@@ -63,7 +63,7 @@ GEM
     childprocess (1.0.1)
       rake (< 13.0)
     concurrent-ruby (1.1.5)
-    congress_forms (0.1.15)
+    congress_forms (0.1.16)
       capybara-selenium (~> 0.0.6)
       nokogiri (>= 1.8.2)
       rest-client (~> 2.0)
