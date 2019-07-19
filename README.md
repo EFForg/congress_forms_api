@@ -1,6 +1,6 @@
 # CongressForms API
 
-This is a Rails app providing a JSON-based API for the [EFForg/congress_forms](https://github.com/EFForg/congress_forms) gem.
+This is a Rails app providing a JSON-based API for the [congress_forms](https://gitlab.eff.org/ed/congress_forms) gem.
 
 ## Installation
 
@@ -11,7 +11,7 @@ $ cp .env.example .env
 $ cp docker-compose.yml.example docker-compose.yml # if using docker
 ```
 
-Fill in the `DATABASE_*` variables with your postgres address/credentials, and the `CWC_*` variables with your Communicating with Congress vendor information (see the [congress_forms](https://github.com/EFForg/congress_forms#operation-and-configuration) README for more documentation on CWC).
+Fill in the `DATABASE_*` variables with your postgres address/credentials, and the `CWC_*` variables with your Communicating with Congress vendor information (see the [congress_forms](https://gitlab.eff.org/ed/congress_forms#operation-and-configuration) README for more documentation on CWC).
 
 The `ADMIN_*` variables are optional. They set the basic auth credentials used by the [/delayed_job](https://github.com/ejschmitt/delayed_job_web) admin area.
 
