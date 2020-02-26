@@ -5,14 +5,17 @@ ruby '>= 2.3.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
+gem 'rack', '>= 2.0.8'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use sqlite as the database for tests
 gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '>= 3.12.2'
 gem 'dotenv'
-gem 'rack-cors', require: 'rack/cors'
+gem 'rack-cors', '>= 1.0.4', require: 'rack/cors'
+gem 'nokogiri', '>= 1.10.8'
+gem 'loofah', '>= 2.3.1'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'sentry-raven'
