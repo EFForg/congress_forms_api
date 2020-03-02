@@ -119,7 +119,7 @@ class FillsController < ApplicationController
     end
 
     report = fills.count.transform_keys do |bioguide|
-      CongressMember.find(bioguide).name
+      CongressMember.find(bioguide).try(:name) || bioguide
     end
 
     render json: report
