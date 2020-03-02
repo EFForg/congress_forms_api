@@ -118,7 +118,11 @@ class FillsController < ApplicationController
       fills = fills.where(campaign_tag: params[:campaign_tag])
     end
 
-    render json: fills.count
+    report = fills.count.transform_keys do |bioguide|
+      CongressMember.find(bioguide).name
+    end
+
+    render json: report
   end
 
   protected

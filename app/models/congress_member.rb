@@ -1,5 +1,6 @@
 class CongressMember
-  attr_accessor :bioguide_id, :chamber, :state, :district, :contact_url
+  attr_accessor :name, :bioguide_id
+  attr_accessor :chamber, :state, :district
   attr_accessor :defunct, :contact_url
 
   alias_method :defunct?, :defunct
@@ -24,6 +25,7 @@ class CongressMember
           [
             item.dig("id", "bioguide"),
             new(
+              name: item.dig("name", "official_full"),
               bioguide_id: item.dig("id", "bioguide"),
               chamber: term["type"] == "sen" ? "senate" : "house",
               state: term["state"],
@@ -63,8 +65,9 @@ class CongressMember
     end
   end
 
-  def initialize(bioguide_id:, chamber:, state:,
+  def initialize(name:, bioguide_id:, chamber:, state:,
                  district: nil, contact_url: nil, defunct: false)
+    self.name = name
     self.bioguide_id = bioguide_id
     self.chamber = chamber
     self.state = state
