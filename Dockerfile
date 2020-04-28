@@ -18,8 +18,10 @@ RUN apt-get update -y && \
     apt-get update && \
     apt-get install -y --no-install-recommends google-chrome-stable
 
+ENV BUNDLER_VERSION="2.0.1"
+
 COPY Gemfile* ./
-RUN bundle install
+RUN gem install bundler -v "$BUNDLER_VERSION" --force && bundle install
 
 COPY . .
 
