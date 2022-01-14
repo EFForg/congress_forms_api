@@ -3,6 +3,10 @@ class ApplicationController < ActionController::API
     render json: { status: "error", message: e.message }, status: 400
   end
 
+  def not_found
+    render json: { status: "error", message: "not found" }, status: 404
+  end
+
   protected
 
   def check_debug_key

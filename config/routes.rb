@@ -18,4 +18,6 @@ Rails.application.routes.draw do
 
   match "/delayed_job" => DelayedJobWeb,
         anchor: false, via: [:get, :post]
+
+  match "*path", via: :all, to: "application#not_found"
 end
