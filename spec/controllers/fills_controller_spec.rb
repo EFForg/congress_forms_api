@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe FillsController, type: :controller do
   let(:senator) {
     CongressMember.new(
+      name: "Soandso",
       bioguide_id: "A0000000",
       chamber: "senate",
       state: "CA")
