@@ -19,7 +19,7 @@ gem 'loofah', '>= 2.3.1'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'sentry-raven'
-gem 'congress_forms', '~> 0.1.14'
+gem 'congress_forms', '~> 0.1.17'
 gem 'groupdate'
 gem 'rubyzip', '>= 1.3.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
