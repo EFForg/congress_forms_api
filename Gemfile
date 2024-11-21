@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.6'
+ruby file: ".ruby-version"
 
 gem 'rails', '~> 6.1'
 gem 'rack', '>= 2.0.8'
