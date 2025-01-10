@@ -15,7 +15,7 @@ class CongressMember
   def self.update_repo
     @@repo =
       begin
-        remote = "https://raw.githubusercontent.com/unitedstates/congress-legislators/master/legislators-current.yaml"
+        remote = "https://raw.githubusercontent.com/unitedstates/congress-legislators/main/legislators-current.yaml"
         list = YAML.load(RestClient.get(remote))
 
         @@repo_updated_at = Time.now
