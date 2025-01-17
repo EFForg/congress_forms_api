@@ -2,7 +2,7 @@ stages:
   - build
 
 variables:
-  IMAGE_NAME: $CI_REGISTRY_IMAGE:latest
+  IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
 
 before_script:
   - env
@@ -15,3 +15,13 @@ build:
   - git clone --depth 1 https://github.com/unitedstates/contact-congress contact_congress
   - docker build --pull --no-cache --label "repo=$CI_PROJECT_URL" -t $IMAGE_NAME .
   - docker push $IMAGE_NAME
+  - |
+    if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+      docker tag "$IMAGE_NAME" "$CI_REGISTRY_IMAGE:latest"
+      docker push "$CI_REGISTRY_IMAGE:latest"
+    fi
+  # Run this job in a branch where a Dockerfile exists
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      exists:
+        - Dockerfile
