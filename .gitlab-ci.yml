@@ -15,5 +15,3 @@ build:
   - git clone --depth 1 https://github.com/unitedstates/contact-congress contact_congress
   - docker build --pull --no-cache --label "repo=$CI_PROJECT_URL" -t $IMAGE_NAME .
   - docker push $IMAGE_NAME
-  only:
-  - master
