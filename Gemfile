@@ -17,7 +17,12 @@ gem 'nokogiri', '>= 1.10.8'
 gem 'loofah', '>= 2.3.1'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web', '~> 1.4'
-gem 'sentry-raven', '~> 3.1.2'
+
+gem 'stackprof'
+gem 'sentry-ruby'
+gem 'sentry-rails'
+gem 'sentry-delayed_job'
+
 gem 'congress_forms', '~> 0.1.14'
 gem 'groupdate'
 gem 'rubyzip', '>= 1.3.0'
