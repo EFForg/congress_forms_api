@@ -23,7 +23,7 @@ gem 'sentry-ruby'
 gem 'sentry-rails'
 gem 'sentry-delayed_job'
 
-gem 'congress_forms', '~> 0.1.14'
+gem 'congress_forms', git: 'https://github.com/EFForg/congress_forms.git', branch: 'master'
 gem 'groupdate'
 gem 'rubyzip', '>= 1.3.0'
 
