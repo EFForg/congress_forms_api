@@ -16,6 +16,7 @@ gem 'rack-cors', '>= 1.0.4', require: 'rack/cors'
 gem 'nokogiri', '>= 1.10.8'
 gem 'loofah', '>= 2.3.1'
 gem 'delayed_job_active_record'
+
 gem 'delayed_job_web', '~> 1.4'
 
 gem 'stackprof'

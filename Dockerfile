@@ -31,7 +31,8 @@ RUN adduser --uid 1000 app && \
     mkdir -p /opt/congress_forms_api/contact_congress && \
     chown -R app /opt/congress_forms_api/contact_congress && \
     mkdir /opt/congress_forms_api/.webdrivers && \
-    chown -R app /opt/congress_forms_api/.webdrivers
+    chown -R app /opt/congress_forms_api/.webdrivers && \
+    chown -R app /opt/congress_forms_api/Gemfile.lock
 
 USER app
 
