@@ -1,4 +1,4 @@
-FROM ruby:2.7
+FROM --platform=linux/amd64 ruby:3.2.6
 
 RUN mkdir -p /opt/congress_forms_api
 WORKDIR /opt/congress_forms_api
@@ -19,6 +19,7 @@ RUN apt-get update -y && \
     apt-get install -y --no-install-recommends google-chrome-stable
 
 COPY Gemfile* ./
+COPY .ruby-version ./
 RUN bundle install
 
 COPY . .
