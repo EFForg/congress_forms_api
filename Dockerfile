@@ -1,4 +1,4 @@
-FROM ruby:3.2.6
+FROM --platform=linux/amd64 ruby:3.2.6
 
 RUN mkdir -p /opt/congress_forms_api
 WORKDIR /opt/congress_forms_api
