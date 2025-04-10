@@ -31,9 +31,6 @@ class FillsController < ApplicationController
 
       deprecation = DefunctCongressForm.find_or_create_by(bioguide_id: @congress_member.bioguide_id)
       deprecation.update(reason: e.message)
-
-      CongressFormsFill.set(wait: 6.hours).
-        perform_later(@congress_member.bioguide_id, fields)
     ensure
       Fill.create(
         bioguide_id: @congress_member.bioguide_id,
