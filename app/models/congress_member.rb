@@ -89,7 +89,7 @@ class CongressMember
     Sentry.capture_exception(e, tags: { bioguide_id: bioguide_id })
 
     if e.message =~ /recaptcha/i
-      DefunctCongressForm.find_or_create_by(bioguide_id: bioguide_id)
+      DefunctCongressForm.find_or_create_by(bioguide_id: bioguide_id).update(reason: "reCAPTCHA")
     end
 
     self.defunct = true
