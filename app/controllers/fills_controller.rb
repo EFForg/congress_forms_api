@@ -15,6 +15,7 @@ class FillsController < ApplicationController
         if @form.fill(fields, validate_only: params[:test] == "1")
           "success"
         else
+          # @TODO: report to sentry?
           "failure"
         end
     rescue CongressForms::Error => e
@@ -51,6 +52,8 @@ class FillsController < ApplicationController
       fills = fills.recent(params[:bio_id])
     end
 
+    # @TODO: can we expose this endpoint to action center to get fill status
+    # reported there?
     render json: fills.order(updated_at: :desc)
   end
 
@@ -127,6 +130,7 @@ class FillsController < ApplicationController
     if @congress_member = CongressMember.find(bio_id)
       @form = @congress_member.form
     else
+      # @TODO: send to sentry?
       render json: {
                status: "error",
                message: "Congress member with provided bio id not found"
@@ -138,6 +142,8 @@ class FillsController < ApplicationController
     fields = params.require(:fields).permit!.to_h
 
     if missing_params = @form.missing_required_params(fields)
+      # @TODO: send to sentry?
+      # careful about sending field content to sentry
       message = "Error: missing fields (#{missing_params.join(', ')})."
       render json: { status: "error", message: message }.to_json
     end
