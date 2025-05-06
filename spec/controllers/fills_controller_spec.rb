@@ -46,7 +46,7 @@ RSpec.describe FillsController, type: :controller do
         [{}, { "bio_id" => senator.bioguide_id }, { "fields" => {} }].each do |params|
           post :create, as: :json, body: params.to_json
 
-          expect(response.content_type).to eq("application/json")
+          expect(response.content_type).to include("application/json")
 
           result = JSON.load(response.body)
           expect(result).to include("status" => "error")

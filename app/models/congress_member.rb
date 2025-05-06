@@ -86,7 +86,7 @@ class CongressMember
   def form
     CongressForms::Form.find(form_id)
   rescue CongressForms::UnsupportedAction => e
-    Raven.capture_exception(e, tags: { bioguide_id: bioguide_id })
+    Sentry.capture_exception(e, tags: { bioguide_id: bioguide_id })
 
     if e.message =~ /recaptcha/i
       DefunctCongressForm.find_or_create_by(bioguide_id: bioguide_id)

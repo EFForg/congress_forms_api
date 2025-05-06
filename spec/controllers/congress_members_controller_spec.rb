@@ -43,7 +43,7 @@ RSpec.describe CongressMembersController, type: :controller do
       post :form_actions, as: :json,
            body: { bio_ids: Array(senator.bioguide_id) }.to_json
 
-      expect(response.content_type).to eq("application/json")
+      expect(response.content_type).to include("application/json")
 
       result = JSON.load(response.body)
       expect(result).to have_key(senator.bioguide_id)
@@ -58,7 +58,7 @@ RSpec.describe CongressMembersController, type: :controller do
         post :form_actions, as: :json,
              body: { bio_ids: Array(senator.bioguide_id) }.to_json
 
-        expect(response.content_type).to eq("application/json")
+        expect(response.content_type).to include("application/json")
         expect(JSON.load(response.body)).to eq({})
       end
     end
@@ -67,7 +67,7 @@ RSpec.describe CongressMembersController, type: :controller do
       it "should respond with an error" do
         post :form_actions
 
-        expect(response.content_type).to eq("application/json")
+        expect(response.content_type).to include("application/json")
 
         result = JSON.load(response.body)
         expect(result).to include("status" => "error")

@@ -23,22 +23,15 @@ class CarriedOverMessage < ApplicationRecord
                  "failure"
                end
     rescue CongressForms::Error => e
-      self.last_screenshot = e.screenshot.sub(
-        Rails.root.join("public").to_s,
-        ENV["SERVER_HOST"]
-      )
-
-      Raven.capture_exception(
-        e,
-        message: "#{congress_member.bioguide_id}: #{e.message}",
+      Sentry.capture_exception(
+        CongressFormsApi::FillError.new(e.message, congress_member.bioguide_id),
         tags: {
           "form_error" => true,
           "carry_over" => true,
           "bioguide_id" => congress_member.bioguide_id
         },
         extra: {
-          fields: fields,
-          screenshot: last_screenshot
+          field_keys: fields&.keys,
         }
       )
     ensure
